@@ -123,7 +123,7 @@ DWORD WINAPI MainLoop() {
 
     while (true) {
         // DEBUG
-        if (GetAsyncKeyState((int)'H') & 0x8000) {
+        if (GetAsyncKeyState((int)'H') & 0x8000 && !chatWidget->is_typing_message) {
             AP_SendItem(LevelUpItemId + l);
             l++;
             Sleep(250);
@@ -155,7 +155,8 @@ DWORD WINAPI MainLoop() {
         }
 
         // Chat box update
-        
+        const int WORLD_SECOND = 10000; // 1 second
+        const int TIME_BEFORE_CHAT_FADEOUT = WORLD_SECOND * 5; // 5 seconds
         if (chatWidget->is_typing_message) {
             lastChatBoxUpdate = gc->world.Time;
             chatWidget->plasma_D3D9RenderSurface->alpha_filter_multiplier = 1.0;
@@ -163,12 +164,12 @@ DWORD WINAPI MainLoop() {
 
         // Should prevent chat from reseting when a new day begin.
         if (gc->world.Time < lastChatBoxUpdate) {
-            lastChatBoxUpdate = gc->world.Time + 100000;
+            lastChatBoxUpdate = gc->world.Time + TIME_BEFORE_CHAT_FADEOUT;
         }
 
-        DWORD time_since_last_update = gc->world.Time - lastChatBoxUpdate-100000;
-        if (time_since_last_update < 10000 && time_since_last_update > 0) {
-            double animation_progress = (double)time_since_last_update / 10000.0;
+        DWORD time_since_last_update = gc->world.Time - lastChatBoxUpdate - TIME_BEFORE_CHAT_FADEOUT;
+        if (time_since_last_update < WORLD_SECOND && time_since_last_update > 0) {
+            double animation_progress = (double)time_since_last_update / WORLD_SECOND;
             chatWidget->plasma_D3D9RenderSurface->alpha_filter_multiplier = 1.0 - (animation_progress * 0.9);
         }
 
