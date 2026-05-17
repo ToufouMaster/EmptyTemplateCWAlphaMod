@@ -31,8 +31,8 @@ assert_size(cube::World, 0x80029C) // Only instanced once, may be incorrect.
 assert_size(cube::WorldMap, 0x800108) // Only instanced once, may be incorrect.
 assert_size(cube::Zone, 0xc8)
 
-
 #include "cube_util.h"
+UINT_PTR static base = (uint32_t)GetModuleHandleA(NULL);
 
 namespace cube {
 	GameController* BusywaitForGameController();

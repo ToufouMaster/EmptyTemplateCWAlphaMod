@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for RecruitMod, include source and define
+﻿# CMakeList.txt : CMake project for CWAlpha_Randomizer, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
@@ -9,14 +9,16 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("TemplateMod")
+project ("CWAlpha_Randomizer")
 
 add_subdirectory(cwsdk)
+add_subdirectory(APCpp)
 # Add source to this project's executable.
-add_library (TemplateMod SHARED "dllmain.cpp")
-target_link_libraries (TemplateMod LINK_PUBLIC cwsdk)
+add_library (CWAlpha_Randomizer SHARED "dllmain.cpp")
+target_link_libraries (CWAlpha_Randomizer LINK_PUBLIC cwsdk)
+target_link_libraries (CWAlpha_Randomizer LINK_PUBLIC APCpp)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET TemplateMod PROPERTY CXX_STANDARD 20)
+  set_property(TARGET CWAlpha_Randomizer PROPERTY CXX_STANDARD 20)
 endif()
 
