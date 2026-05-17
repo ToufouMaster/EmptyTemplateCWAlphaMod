@@ -3,12 +3,11 @@
 #include "string"
 #include "src/APUtils.h"
 
+DWORD lastChatBoxUpdate = 0;
+
 void SetupHooks() {
     SetupOnLevelUp();
     SetupOnMessageSent();
-    const wchar_t* test = L"test";
-    std::wstring test2 = std::wstring(test);
-    AP_Say(std::string(test2.begin(), test2.end()));
 ;}
 
 void onItemCleared() {
@@ -122,9 +121,6 @@ DWORD WINAPI MainLoop() {
 
     int l = 0;
 
-    PrintArchipelago(chatWidget);
-    chatWidget->Print(L"Successfully connected to the world at address: "+ std::wstring(AP_ipString.begin(), AP_ipString.end())+L"\n", Color::Green());
-
     while (true) {
         // DEBUG
         if (GetAsyncKeyState((int)'H') & 0x8000) {
@@ -154,7 +150,32 @@ DWORD WINAPI MainLoop() {
                 break;
             }
             AP_ClearLatestMessage();
+            lastChatBoxUpdate = gc->world.Time;
+            chatWidget->plasma_D3D9RenderSurface->alpha_filter_multiplier = 1.0;
         }
+
+        // Chat box update
+        
+        if (chatWidget->is_typing_message) {
+            lastChatBoxUpdate = gc->world.Time;
+            chatWidget->plasma_D3D9RenderSurface->alpha_filter_multiplier = 1.0;
+        }
+
+        // Should prevent chat from reseting when a new day begin.
+        if (gc->world.Time < lastChatBoxUpdate) {
+            lastChatBoxUpdate = gc->world.Time + 100000;
+        }
+
+        DWORD time_since_last_update = gc->world.Time - lastChatBoxUpdate-100000;
+        if (time_since_last_update < 10000 && time_since_last_update > 0) {
+            double animation_progress = (double)time_since_last_update / 10000.0;
+            chatWidget->plasma_D3D9RenderSurface->alpha_filter_multiplier = 1.0 - (animation_progress * 0.9);
+        }
+
+        chatWidget->pos_x = 0;
+        chatWidget->pos_y = 650;
+        chatWidget->width = 750;
+        chatWidget->height = 850;
     }
 
     return 0;

@@ -302,10 +302,10 @@ namespace cube {
 		uint32_t ObjectiveWidget;
 		uint32_t field_80094C;
 		uint32_t StatisticsWidget;
-		uint32_t InventoryWidget1;
-		uint32_t InventoryWidget2;
-		uint32_t InventoryWidget3;
-		uint32_t CharacterWidget;
+		plasma::Widget* InventoryWidget1;
+		plasma::Widget* InventoryWidget2;
+		plasma::Widget* InventoryWidget3;
+		plasma::Widget* CharacterWidget;
 		uint32_t field_800964;
 		uint32_t field_800968;
 		uint32_t field_80096C;

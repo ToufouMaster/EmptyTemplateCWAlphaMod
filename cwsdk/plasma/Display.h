@@ -8,6 +8,7 @@
 
 namespace plasma {
 	class Display : Keyable {
+	public:
 		DiscreteAttribute<uint32_t> visibility;
 		DiscreteAttribute<uint32_t> clipping;
 		ContinuousAttribute<Vector<4, float>> fill;

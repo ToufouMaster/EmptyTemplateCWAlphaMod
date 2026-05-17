@@ -10,6 +10,7 @@ namespace plasma {
 	class Widget;
 
 	class Node : NamedObject {
+	public:
 		//void* vtable;
 		uint32_t field_20;
 		Node* parent_node_or_base_maybe;

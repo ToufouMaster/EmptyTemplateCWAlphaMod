@@ -4,7 +4,7 @@ cmake_minimum_required (VERSION 3.8)
 project ("cwsdk")
 
 # Add source to this project's executable.
-add_library (cwsdk "cube.cpp" "globals.cpp" "cube_funcs.cpp" "cube/world.cpp" "cube/chatwidget.cpp" "msvc_bincompat/wstring.cpp")
+add_library (cwsdk "cube.cpp" "globals.cpp" "cube_funcs.cpp" "cube/world.cpp" "cube/chatwidget.cpp" "msvc_bincompat/wstring.cpp" "plasma/D3D9RenderSurface.h")
 target_include_directories (cwsdk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories (cwsdk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cwsdk)
 target_include_directories (cwsdk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/cwsdk/cube)

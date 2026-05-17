@@ -8,6 +8,7 @@
 #include "plasma\ContinuousAttribute.h"
 #include "plasma\ContinuousArrayAttribute.h"
 
+#include "plasma\D3D9RenderSurface.h"
 #include "plasma\Attribute.h"
 #include "plasma\Object.h"
 #include "plasma\NamedObject.h"
@@ -20,6 +21,7 @@
 #include "plasma\Display.h"
 #include "plasma\Node.h"
 
+assert_size(plasma::D3D9RenderSurface, 0x3c)
 assert_size(plasma::Attribute, 0x48)
 assert_size(plasma::Object, 0xC)
 assert_size(plasma::NamedObject, 0x24)

@@ -41,5 +41,11 @@ void SetupOnMessageSent() {
     WriteJMP((void*)(base + 0x7E6C5), (void*)(base + 0x7E6CA)); // Don't empty the current message string
     WriteJMP((void*)(base + 0x7E6D0), (void*)(base + 0x7E6D5)); // Don't empty the current message string
     WriteJMP((void*)(base + 0x8CD70), (void*)&ASMOnMessageSent, 7U); // Replace sent message with custom logic
+    WriteJMP((void*)(base + 0x22DB8A), (void*)(base + 0x22DB8F)); // Replace posy logic (allow chat box position to be changed)
+
+    // Chat box message count modifications
+    WriteBYTE((void*)(base + 0x39766), 0x2E); // Change max message amount;
+    WriteBYTE((void*)(base + 0x397B3), 0x2E); // Change max message amount;
+
     ASMOnMessageSent_jmpback = (void*)(base + 0x8CD77);
 }

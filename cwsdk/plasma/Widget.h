@@ -15,7 +15,7 @@ namespace plasma {
 		uint32_t field_2C;
 		uint32_t field_30;
 		uint32_t field_34;
-		void* plasma_D3D9RenderSurface;
+		plasma::D3D9RenderSurface* plasma_D3D9RenderSurface;
 		uint32_t x_offset;
 		uint32_t y_offset;
 		uint32_t field_44;
@@ -26,12 +26,12 @@ namespace plasma {
 		uint32_t field_58;
 		float field_5C;
 		float field_60;
-		uint32_t field_64;
-		uint32_t field_68;
+		float pos_x;
+		float pos_y;
 		float width;
 		float height;
-		uint32_t field_74;
-		uint32_t field_78;
+		float width_extender;
+		float height_extender;
 		uint16_t field_7C;
 		uint32_t field_80;
 		uint32_t field_84;
