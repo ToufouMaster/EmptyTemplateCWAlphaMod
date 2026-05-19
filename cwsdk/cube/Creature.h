@@ -242,6 +242,7 @@ namespace cube {
 			Owl = 92,
 			Penguin = 93,
 			Werewolf = 94,
+			Santa = 95,
 			Zombie = 96,
 			Vampire = 97,
 			Horse = 98,
@@ -275,6 +276,7 @@ namespace cube {
 			FireScrub = 126,
 			Ginseng = 127,
 			Cactus = 128,
+			ChristmasTree = 129,
 			ThornTree = 130,
 			GoldDeposit = 131,
 			IronDeposit = 132,
@@ -301,6 +303,7 @@ namespace cube {
 			MawFish = 153,
 			Piranha = 154,
 			Blowfish = 155,
+			Count = 156,
 		};
 
 		int vftable;

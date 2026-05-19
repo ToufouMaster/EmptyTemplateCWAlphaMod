@@ -1,13 +1,14 @@
 ﻿// dllmain.cpp : Defines the entry point for the application.
 #include "dllmain.h"
 #include "string"
-#include "src/APUtils.h"
 
 DWORD lastChatBoxUpdate = 0;
+bool isConnected = false;
 
 void SetupHooks() {
     SetupOnLevelUp();
     SetupOnMessageSent();
+    SetupOnCreatureSpawnData();
 ;}
 
 void onItemCleared() {
@@ -16,13 +17,10 @@ void onItemCleared() {
 
 void onItemReceived(int itemId, bool notify) {
     if (!notify) return;
-    cube::ChatWidget* chatWidget = cube::GetGameController()->ChatWidget;
-    chatWidget->Print(L"item Received: " + std::to_wstring(itemId) + L" Notify(" + ((notify) ? L"True" : L"False") + L")\n", Color::White());
 }
 
 void onLocationChecked(int locationId) {
-    cube::ChatWidget* chatWidget = cube::GetGameController()->ChatWidget;
-    chatWidget->Print(L"Location Checked: " +std::to_wstring(locationId) + L"\n", Color::White());
+
 }
 
 void PrintArchipelago(cube::ChatWidget* chatWidget) {
@@ -58,8 +56,8 @@ void PrintHint(AP_HintMessage* msg) {
     PrintItemName(chatWidget, itemName);
     chatWidget->Print(L" is in ", (msg->checked) ? Color::Green() : Color::White());
     chatWidget->Print(senderName, APUtils::playerColor);
-    chatWidget->Print(L" world at ", (msg->checked) ? Color::Green() : Color::White());
-    chatWidget->Print(locationName, APUtils::locationColor);
+    chatWidget->Print(L" world ", (msg->checked) ? Color::Green() : Color::White());
+    chatWidget->Print(L"(" + locationName + L")", APUtils::locationColor);
     if (msg->checked) {
         chatWidget->Print(L" and has already been found!", Color::Green());
     }
@@ -94,7 +92,6 @@ void PrintMessage(std::wstring message, Color color) {
     cube::ChatWidget* chatWidget = cube::GetGameController()->ChatWidget;
     chatWidget->Print(message, color);
     chatWidget->Print(L"\n", color);
-
 }
 
 // This function is called whenever the mod is loaded
@@ -119,9 +116,17 @@ DWORD WINAPI MainLoop() {
     AP_SetLocationCheckedCallback(onLocationChecked);
     AP_Start();
 
+    CreatureRandomizer::InitRandomizedMonsterList();
     int l = 0;
 
     while (true) {
+
+        /*if (isConnected == false && AP_GetConnectionStatus() == AP_ConnectionStatus::Connected) {
+            MonsterRandomizer::InitRandomizedMonsterList();
+            isConnected = true;
+            //chatWidget->Print(L"Randomizer On", Color::White());
+        }*/
+
         // DEBUG
         if (GetAsyncKeyState((int)'H') & 0x8000 && !chatWidget->is_typing_message) {
             AP_SendItem(LevelUpItemId + l);

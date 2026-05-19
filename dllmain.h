@@ -8,7 +8,10 @@
 
 #include "cwsdk.h"
 #include "APCpp/Archipelago.h"
+#include "src/APUtils.h"
+#include "src/CreatureRandomizer.h"
 
 // TODO: Reference additional headers your program requires here.
 #include "src/hooks/__OnLevelUp.h"
 #include "src/hooks/__OnMessageSent.h"
+#include "src/hooks/__OnCreatureSpawn.h"

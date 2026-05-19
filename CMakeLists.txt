@@ -14,7 +14,7 @@ project ("CWAlpha_Randomizer")
 add_subdirectory(cwsdk)
 add_subdirectory(APCpp)
 # Add source to this project's executable.
-add_library (CWAlpha_Randomizer SHARED "dllmain.cpp")
+add_library (CWAlpha_Randomizer SHARED "dllmain.cpp" "src/CreatureRandomizer.h" "src/hooks/__OnCreatureSpawn.h")
 target_link_libraries (CWAlpha_Randomizer LINK_PUBLIC cwsdk)
 target_link_libraries (CWAlpha_Randomizer LINK_PUBLIC APCpp)
 
